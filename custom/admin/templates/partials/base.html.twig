@@ -1,0 +1,141 @@
+{% extends "@gantry-admin/partials/page.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url('gantry-admin://assets/css-compiled/g-admin.css') }}" type="text/css" />
+    {% if not gantry.platform.has('fontawesome') %}
+    <link rel="stylesheet" href="{{ url('gantry-admin://assets/css/font-awesome.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ url('gantry-theme://custom/css-compiled/custom-g-admin.css') }}" type="text/css" />
+    <style>
+        /* ### STYLING FOR OUTLINE DROPDOWN */
+        .g-selectize-dropdown-content {
+            max-height:600px !important;
+        }
+        
+        
+        /* ### STYLING FOR PARTICLE MODAL  */
+        #g5-container .g5-dialog.g5-dialog-theme-default .g5-content {
+            width:900px;
+        }
+        
+        /* ### STYLING FOR PARTICLE INPUTS */
+        #g5-container .g5-dialog .settings-block input:not(.settings-param-toggle):not(.g-keyvalue-input-key):not(.g-keyvalue-input-value):not([type="checkbox"]):not([type="radio"]), #g5-container .g5-dialog .settings-block select, #g5-container .g5-dialog .settings-block .collection-list ul, #g5-container .g5-dialog .settings-block .g-colorpicker, #g5-container .g5-dialog .settings-block .g-selectize-input {
+            width:500px;
+        }
+        
+        .mce-content-body {
+            background-color:red;
+        }
+
+    </style>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascript %}
+    <script>
+    </script>
+
+    <!-- Scripts for TinyMCE integration -->
+    <script src="gantry-theme://custom/tinymce/js/tinymce/jquery.tinymce.min.js"></script>
+    <script src="gantry-theme://custom/tinymce/js/tinymce/tinymce.min.js"></script>
+    
+    <!-- Gantry scripts -->
+    <script type="text/javascript" async="async" src="{{ url('gantry-admin://assets/js/main.js') }}"></script>
+    {% include "@gantry-admin/partials/js-translations.html.twig" %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div id="main-header" data-mode-indicator="production">
+        {% include "@gantry-admin/partials/php_unsupported.html.twig" %}
+        {% include "@gantry-admin/partials/header.html.twig" %}
+    </div>
+
+    <div class="inner-container">
+        {% include "@gantry-admin/partials/updates.html.twig" %}
+        {% block gantry_content_wrapper %}
+            <div data-g5-content-wrapper="">
+                {% include "@gantry-admin/partials/navigation.html.twig" %}
+                <div class="g-grid">
+
+                    <div class="g-block main-block">
+                        <section id="g-main">
+                            <div class="g-content" data-g5-content="">
+                                {% block gantry %}
+                                {% endblock %}
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block footer_section %}
+    <footer id="footer">
+        <div>
+            {{ 'GANTRY5_PLATFORM_FOOTER'|trans|raw }}
+        </div>
+        {% set version = constant('GANTRY5_VERSION') %}
+        {% set version_date = constant('GANTRY5_VERSION_DATE') %}
+        <div>
+            {{ 'GANTRY5_PLATFORM_FOOTER_VERSION'|trans }} <span class="g-version">{{ version }}</span>
+            /
+            {{ 'GANTRY5_PLATFORM_FOOTER_RELEASED'|trans }} <span class="g-version-date">{{ version_date}}</span>
+        </div>
+        <div><a href="#" data-changelog="{{ constant('GANTRY5_VERSION') }}">{{ 'GANTRY5_PLATFORM_CHANGELOG'|trans }}</a></div>
+         
+         <script>
+
+         // ##### TinyMCE Editor Integration for Text Areas in Gantry 5 Layout Manager
+         // Requires included scripts jquery.tinymce.min.js and tinymce.min.js currently near the top of this file
+
+         // creates an '.onCreate()' function option for elements being created after initial page load
+        !function(t){"use strict";"function"==typeof define&&define.amd?define(["jquery"],t):"undefined"!=typeof exports?module.exports=t:t(jQuery)}(function(t,e){function s(t){var i;this.observe=function(a,n){e?(i=i||new e(t),i.observe(a,n)):i=setInterval(t,50)},this.disconnect=function(){i&&(e?i.disconnect():clearInterval(i))}}function c(e,a,n){this.callback=e,this.conditions=a,this.multi=n||!1,this.cbid=i++,this.processed=t([])}function l(e){var i={};return e.attributes&&t.each(e.attributes,function(t,e){i[e.name]=e.value}),i}function f(e,i){var a=[];return t.each(e,function(t,e){("undefined"==typeof i[t]||e!==i[t])&&a.push({attributeName:t})}),t.each(i,function(t){"undefined"==typeof e[t]&&a.push({attributeName:t})}),a}function o(t,e,i){var a=t.attributeName,n=e.attr(a),r=i.conditions||!1,s=r?r[0]:!1,c=r&&r[1]?r[1]:!1;return!s||s.indexOf(a)>-1?c?n.search(c)>=0:!0:!1}t||(t=t.fn.jquery?t:jQuery),e||(e=window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver||!1);var i=0,a="create",n="modify",r="text",u={attach:function(i){var u=i.type,h=i.callback,d=i.multi||!1,p=i.conditions;this.data("onMutate")||this.data("onMutate",{create:{callbacks:[],ignore:!1},modify:{callbacks:[],ignore:!1},text:{callbacks:[],ignore:!1}});var b=this.data("onMutate")[u],y=b.callbacks,v=new c(h,p,d);y.unshift(v),e||u!==n||(b.attributeMap=l(this[0])),u===r&&(b.text=this.text());var k,m,g=this,x=b.mutcallback=b.mutcallback||function(i){if(y=b.callbacks,!b.ignore){b.ignore=!0;var s=u===a?t(p,g):g;if(s.length>0){var c,h;for(u===n&&(c=l(g[0])),u===r&&(h=g.text()),k=y.length-1;k>=0;k--){var d=y[k].processed,v=s.not(d);if(u===n){m=!1,e||(i=f(c,b.attributeMap));for(var x=0;x<i.length;x++)m=m||o(i[x],g,y[k])}if(u===r){m=!1;var w=y[k].conditions;h!==b.text&&(m=w?h.search(w)>-1:!0)}v.length>0&&(u===a||m)&&(u===a&&(d=d.add(v)),y[k].processed=d,y[k].callback.call(g,v),y[k].multi||y.splice(k,1))}u===n&&(b.attributeMap=l(g[0])),u===r&&(b.text=g.text())}if(b.ignore&&setTimeout(function(){b.ignore=!1},1),0===y.length){if(!M)return!0;M.disconnect()}}};if(u===a&&x())return this;var w,M=b.observer=b.observer||new s(x);switch(u){case a:w={childList:!0,subtree:!0};break;case n:w={attributes:!0},p&&(w.attributeFilter=p[0].split(" "));break;case r:w={childList:!0,characterData:!0,subtree:!0}}return M.observe(g[0],w),this},detach:function(t){if(!this.data("onMutate"))return this;var e=t.type,i=this.data("onMutate")[e],a=i.callbacks,n=t.callback;if(n)for(var r=a.length-1;r>=0;r--)a[r].callback.prototype.cbid===n.prototype.cbid&&a.splice(r,r+1);else i.callbacks=[];return a.length||i.observer.disconnect(),this}};t.fn.extend({onCreate:function(){var t=Array.prototype.slice.call(arguments);return"string"!=typeof t[0]?this:"detach"===t[0]?u.detach.call(this,{type:a,callback:t[1]}):"string"==typeof t[0]&&"function"==typeof t[1]?u.attach.call(this,{type:a,conditions:t[0],callback:t[1],multi:t[2]}):this},onModify:function(){var e,t=Array.prototype.slice.call(arguments);if(e=u[t[0]]?t.shift():"attach","function"==typeof t[0])return u[e].call(this,{type:n,callback:t[0],multi:t[1]});if("string"==typeof t[0]){if("function"==typeof t[1])return u[e].call(this,{type:n,conditions:[t[0]],callback:t[1],multi:t[2]});if("string"==typeof t[1]||t[1]instanceof RegExp)return u[e].call(this,{type:n,conditions:[t[0],t[1]],callback:t[2],multi:t[3]})}else{if("attach"===e)return this;u[e].call(this,{type:n})}},onText:function(){if(0===this.length)return this;var e,t=Array.prototype.slice.call(arguments);return e=u[t[0]]?t.shift():"attach","function"==typeof t[0]?u[e].call(this,{type:r,callback:t[0],multi:t[1]}):"string"==typeof t[0]||t[0]instanceof RegExp&&"function"==typeof t[1]?u[e].call(this,{type:r,conditions:t[0],callback:t[1],multi:t[2]}):"attach"===e?this:void u[e].call(this,{type:r})}}),t.onCreate=function(e,i,a){t(document).onCreate(e,i,a)}});
+
+        // function for tinyMCE on textareas
+        function tinyMCEtextarea() {
+            // initiate TinyMCE editor
+                tinymce.init({
+                    selector: ".settings-param-field textarea[name^='particles'],.settings-param-field textarea[name^='data']",
+                    extended_valid_elements: "svg[*],defs[*],pattern[*],desc[*],metadata[*],g[*],mask[*],path[*],line[*],marker[*],rect[*],circle[*],ellipse[*],polygon[*],polyline[*],linearGradient[*],radialGradient[*],stop[*],image[*],view[*],text[*],textPath[*],title[*],tspan[*],glyph[*],symbol[*],switch[*],use[*],g[*]",
+                    custom_elements : 'svg,g',
+                    branding: false,
+                    language: 'es',
+                    menubar: false,
+                    statusbar: false,
+                    content_style: ".mce-content-body {font-size:16px;background: #d4d4d4; padding: 0; margin: 0;} p{margin: 0 0 1rem;}",
+                    width: '100%',
+                    toolbar_items_size:'small',
+                    theme: 'modern',
+                    relative_urls: true,
+                    plugins: [
+                        'advlist autolink autoresize lists link image charmap print preview hr anchor pagebreak',
+                        'searchreplace wordcount visualblocks visualchars code fullscreen',
+                        'insertdatetime media nonbreaking save table contextmenu directionality',
+                        'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
+                    ],
+                    toolbar1: 'undo redo | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent ',
+                    toolbar2: 'fontsizeselect | styleselect | preview link image | fullscreen code',
+                    fontsize_formats: "6px 8px 10px 12px 14px 16px 18px 24px 32px 36px 42px 48px 56px 60px 80px",
+                    image_advtab: true, 
+                         setup: function (editor) {
+                            editor.on('change', function () {
+                            editor.save();
+                            });
+                        } 
+
+                    });// end tinymce.init
+        }
+
+
+            // on textarea focus
+            jQuery(document).onCreate(".settings-param-field textarea[name^='particles'], .settings-param-field textarea[name^='data']", tinyMCEtextarea);
+            jQuery(".settings-param-field textarea[name^='particles'],.settings-param-field textarea[name^='data']").live('click', tinyMCEtextarea);
+
+
+         </script>
+
+    </footer>
+{% endblock %}
