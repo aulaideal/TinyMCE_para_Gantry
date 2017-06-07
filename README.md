@@ -1,4 +1,4 @@
-# Partícula "Simple Boton"
+# Partícula "TinyMCE_para_Gantry"
 Partícula para Gantry 5 que te permite incluir un botón con multiples opciones de configuración. Puedes cambiar el tamaño, estilo, color,etc. Muy usado en sitios web modernos. 
 ![tinymce_para_gantry](https://user-images.githubusercontent.com/9434043/26897497-5a90ed00-4b8e-11e7-82a4-f06a357790af.png)
 
@@ -24,6 +24,3 @@ Modo de uso
 
 Saludos
 http://www.aulaideal.com
-
-
-
