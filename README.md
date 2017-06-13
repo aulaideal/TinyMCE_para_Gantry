@@ -8,19 +8,11 @@ No hemos incluido un instalador ya que deseamos que esta partícula pueda ser us
 El modo de instalación es muy sencillo:
 
 + Crear la carpeta "particles" dentro de tu carpeta "custom" en tu plantilla Gantry. Ejem: g5_hydrogen/custom/particles
-+ Cópie los archivosSimple-boton.yaml y Simple-boton.html.twig dentro de la carpeta "particle". Ejem: g5_hydrogen/custom/particles
-+ Cópie el archivo scss/_Simple-boton.scss dentro de tu carpeta "scss". Ejem: g5_hydrogen/custom/scss/_Simple-boton.scss
-+ Llame al archivo desde tu custom.scss colocando la siguiente linea al comienzo: 
-  
-  /*Estilos partícula Simple-boton */
-  
-  @import "Simple-boton";
-
++ Cópie las carpetas "admin" y "tinymce" dentro de la carpeta "custom". Ejem: g5_hydrogen/custom/admin/ o g5_hydrogen/custom/tinymce/
 
 Modo de uso
 -----------
-+ Desde el Layout Manager encontrarás la partícula con el nombre "Simple-boton". 
-+ Arrástrala a tu  diseño y configúrala.
++ Cada vez que crée o use  una partícula, en los campos de tipo "Textarea" se cargada el editor "TinyMCE". Eso es todo :-)
 
 Saludos
 http://www.aulaideal.com
