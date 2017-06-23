@@ -7,7 +7,6 @@ Instalación
 No hemos incluido un instalador ya que deseamos que esta partícula pueda ser usada tanto en Joomla como en Wordpress. 
 El modo de instalación es muy sencillo:
 
-+ Crear la carpeta "particles" dentro de tu carpeta "custom" en tu plantilla Gantry. Ejem: g5_hydrogen/custom/particles
 + Cópie las carpetas "admin" y "tinymce" dentro de la carpeta "custom". Ejem: g5_hydrogen/custom/admin/ o g5_hydrogen/custom/tinymce/
 
 Modo de uso
